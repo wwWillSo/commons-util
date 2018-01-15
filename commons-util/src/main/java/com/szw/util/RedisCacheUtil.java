@@ -69,6 +69,14 @@ public class RedisCacheUtil<T> {
 		return listOperation;
 	}
 
+	public <T> ListOperations<String, T> insertCacheList(String key, T data) {
+		ListOperations listOperation = redisTemplate.opsForList();
+
+		listOperation.leftPush(key, data);
+
+		return listOperation;
+	}
+
 	/**
 	 * 获得缓存的list对象
 	 *

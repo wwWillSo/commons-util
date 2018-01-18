@@ -69,12 +69,22 @@ public class RedisCacheUtil<T> {
 		return listOperation;
 	}
 
-	public <T> ListOperations<String, T> insertCacheList(String key, T data) {
+	public <T> ListOperations<String, T> pushCacheList(String key, T data) {
 		ListOperations listOperation = redisTemplate.opsForList();
 
 		listOperation.leftPush(key, data);
 
 		return listOperation;
+	}
+
+	public T popCacheList(String key) {
+		ListOperations listOperation = redisTemplate.opsForList();
+
+		if (listOperation.size(key) != 0) {
+			return (T) listOperation.rightPop(key);
+		} else {
+			return null;
+		}
 	}
 
 	/**

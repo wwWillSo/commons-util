@@ -12,7 +12,11 @@ import java.util.Date;
  */
 public class DateUtil {
 
-	public final static long MINUTE = 60 * 1000;
+	private final static long MINUTE = 60 * 1000;
+
+	private final static SimpleDateFormat sdf_yyyyMMddHHmmss = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	private final static SimpleDateFormat sdf_yyyyMMddHHmm = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	private final static SimpleDateFormat sdf_yyyyMMdd = new SimpleDateFormat("yyyy-MM-dd");
 
 	public static boolean isAfter(Date date1, Date date2) {
 		return date1.after(date2);
@@ -81,25 +85,17 @@ public class DateUtil {
 	}
 
 	public static String format_yyyyMMddHHmmss(Date date) {
-
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-		return sdf.format(date);
+		return sdf_yyyyMMddHHmmss.format(date);
 
 	}
 
 	public static String format_yyyyMMddHHmm(Date date) {
-
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-
-		return sdf.format(date);
+		return sdf_yyyyMMddHHmm.format(date);
 
 	}
 
 	public static String format_yyyyMMdd(Date date) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-		return sdf.format(date);
+		return sdf_yyyyMMdd.format(date);
 	}
 
 	public static long countMinutes(Date end, Date start) {

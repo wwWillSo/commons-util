@@ -69,24 +69,6 @@ public class RedisCacheUtil<T> {
 		return listOperation;
 	}
 
-	public <T> ListOperations<String, T> pushCacheList(String key, T data) {
-		ListOperations listOperation = redisTemplate.opsForList();
-
-		listOperation.leftPush(key, data);
-
-		return listOperation;
-	}
-
-	public T popCacheList(String key) {
-		ListOperations listOperation = redisTemplate.opsForList();
-
-		if (listOperation.size(key) != 0) {
-			return (T) listOperation.rightPop(key);
-		} else {
-			return null;
-		}
-	}
-
 	/**
 	 * 获得缓存的list对象
 	 *
@@ -102,6 +84,51 @@ public class RedisCacheUtil<T> {
 			dataList.add(listOperation.index(key, i));
 		}
 		return dataList;
+	}
+
+	/**
+	 * leftPush
+	 * 
+	 * @param key
+	 * @param data
+	 * @return
+	 * @author 苏镇威 2018年1月29日 上午10:03:05
+	 */
+	public <T> ListOperations<String, T> pushCacheList(String key, T data) {
+		ListOperations listOperation = redisTemplate.opsForList();
+
+		listOperation.leftPush(key, data);
+
+		return listOperation;
+	}
+
+	/**
+	 * right pop
+	 * 
+	 * @param key
+	 * @return
+	 * @author 苏镇威 2018年1月29日 上午10:03:20
+	 */
+	public T popCacheList(String key) {
+		ListOperations listOperation = redisTemplate.opsForList();
+
+		if (listOperation.size(key) != 0) {
+			return (T) listOperation.rightPop(key);
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * 获取list的大小
+	 * 
+	 * @param key
+	 * @return
+	 * @author 苏镇威 2018年1月29日 上午10:02:32
+	 */
+	public Long getCacheListSize(String key) {
+		ListOperations listOperation = redisTemplate.opsForList();
+		return listOperation.size(key);
 	}
 
 	/**
